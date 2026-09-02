@@ -1,0 +1,4 @@
+# Original full-resolution video (146 MB, exceeds GitHub's 100 MB limit). A compressed copy lives in assets/hero.mp4.
+video/
+.DS_Store
+Thumbs.db

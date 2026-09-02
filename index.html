@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Mamba Sequence Modeling meets Model Predictive Control</title>
+  <meta name="description" content="Mamba-MPC: Model Predictive Control with a decoder-only Mamba multi-step predictor. Evaluated on a Van der Pol oscillator, a MIMO Four Tank system and a physical Quanser Aero2 — Cevaal, de Jong, Lazar (IEEE Open Journal of Control Systems, 2026)." />
+  <meta property="og:title" content="Mamba Sequence Modeling meets Model Predictive Control" />
+  <meta property="og:description" content="Model Predictive Control with a Mamba multi-step predictor: sub-quadratic scaling, outperforms LSTM-MPC, validated on a physical Quanser Aero2." />
+  <meta property="og:image" content="https://cmichiel.github.io/assets/hero.jpg" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="citation_title" content="Mamba Sequence Modeling meets Model Predictive Control" />
+  <meta name="citation_author" content="Cevaal, Michiel" />
+  <meta name="citation_author" content="de Jong, Thomas O." />
+  <meta name="citation_author" content="Lazar, Mircea" />
+  <meta name="citation_journal_title" content="IEEE Open Journal of Control Systems" />
+  <meta name="citation_publication_date" content="2026" />
+  <meta name="citation_doi" content="10.1109/OJCSYS.2026.3724785" />
+  <meta name="citation_pdf_url" content="https://cmichiel.github.io/paper/Mamba_Sequence_Modeling_meets_Model_Predictive_Control.pdf" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ───────── Hero ───────── -->
+  <header class="hero">
+    <div class="hero__inner">
+      <div class="venue"><a href="https://ieeexplore.ieee.org/document/11657796" target="_blank" rel="noopener">IEEE Open Journal of Control Systems</a> · 2026</div>
+      <h1><span class="line">Mamba Sequence Modeling meets</span><span class="line">Model Predictive Control</span></h1>
+
+      <div class="authors">
+        <span>Michiel Cevaal<sup>1</sup></span>
+        <span>Thomas O. de Jong<sup>2</sup></span>
+        <span>Mircea Lazar<sup>2</sup></span>
+      </div>
+      <div class="affs">
+        <div><sup>1</sup>Tilburg University, The Netherlands</div>
+        <div><sup>2</sup>Eindhoven University of Technology, The Netherlands</div>
+      </div>
+      <div class="corresp">Corresponding author: <a href="mailto:m.cevaal@tilburguniversity.edu">m.cevaal@tilburguniversity.edu</a></div>
+
+      <div class="pills">
+        <a class="pill" href="https://ieeexplore.ieee.org/document/11657796" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          Paper (IEEE Xplore)
+        </a>
+        <a class="pill" href="#main-video">
+          <svg class="yt" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="#FF0000" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8z"/>
+            <path fill="#fff" d="M9.6 15.6V8.4l6.3 3.6z"/>
+          </svg>
+          Video
+        </a>
+        <a class="pill" href="https://github.com/cmichiel/Mamba-MPC" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2.17c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.68-1.28-1.68-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.26 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+          Code
+        </a>
+      </div>
+    </div>
+
+    <figure class="hero__media">
+      <video class="hero__video" id="hero-video" muted autoplay loop playsinline preload="auto" poster="assets/hero.jpg" aria-label="Mamba-MPC closed-loop reference tracking on the Quanser Aero2">
+        <source src="assets/hero.mp4" type="video/mp4" />
+      </video>
+      <figcaption>Mamba-MPC closed-loop reference tracking on the physical Quanser Aero2 (N = 18). Left: measured states (green), inputs (purple) and reference (dashed). Right: the setup. <a href="#main-video">Player with audio below</a> · <a href="https://youtu.be/JZUzMLH1HeU" target="_blank" rel="noopener">YouTube</a>.</figcaption>
+    </figure>
+  </header>
+
+  <!-- ───────── Paper content ───────── -->
+  <main class="page">
+
+    <!-- Main video -->
+    <section id="main-video">
+      <div class="col"><h2>Video</h2></div>
+      <figure class="main-video">
+        <video id="main-video-el" controls playsinline preload="metadata" poster="assets/hero.jpg">
+          <source src="assets/hero.mp4" type="video/mp4" />
+          Your browser does not support HTML video. <a href="https://youtu.be/JZUzMLH1HeU">Watch on YouTube</a>.
+        </video>
+        <figcaption>Mamba-MPC closed-loop reference tracking on the physical Quanser Aero2 setup (prediction horizon N = 18). Also available on <a href="https://youtu.be/JZUzMLH1HeU" target="_blank" rel="noopener">YouTube</a>.</figcaption>
+      </figure>
+    </section>
+
+    <!-- Abstract -->
+    <section class="col" id="abstract">
+      <h2>Abstract</h2>
+      <p>
+        In this paper, we consider the design of Model Predictive Control (MPC) algorithms based on Mamba neural networks. Mamba is a neural network architecture capable of sub-quadratic computational scaling in sequence length with state-of-the-art modeling capabilities. We provide a consistent and complete mathematical description of the Mamba neural network. Then, adjustments and optimizations are made to construct a decoder-only Mamba multi-step predictor for MPC and an input-output formulation is given for sequence-to-sequence modeling of dynamical systems. The performance of Mamba-MPC is evaluated on several numerical examples and compared to a Long-Short-Term-Memory-Based MPC (LSTM-MPC) and a Transformer based MPC (Transformer-MPC) for computational scaling comparison. First, a Single-Input-Single-Output (SISO) Van der Pol oscillator is considered, where stability, reference tracking, and noise robustness are evaluated. Then, a MIMO Four Tank setup is introduced where Multiple-Input-Multiple-Output (MIMO) reference tracking is evaluated. Lastly, Mamba-MPC is implemented on a physical Quanser Aero2 setup for closed-loop reference tracking. The results demonstrate that Mamba-MPC is able to stabilize and track a reference for SISO and MIMO systems, both in simulation and on a physical setup. Moreover, Mamba-MPC consistently outperforms LSTM-MPC in predictive control and is significantly computationally faster.
+      </p>
+      <p class="terms"><b>Index terms</b> Model predictive control, Neural networks, Recurrent neural networks, Machine learning, Data-driven modeling</p>
+    </section>
+
+    <!-- Method figures -->
+    <section id="method">
+      <div class="col">
+        <h2>Mamba as a multi-step predictor for MPC</h2>
+        <p class="lead">The Mamba block used as the MPC prediction model, as described in the paper.</p>
+      </div>
+      <div class="figures">
+        <figure class="xl">
+          <img src="assets/figures/mamba_block.png" alt="Schematic of the Mamba block architecture" loading="lazy" />
+          <figcaption><b>Mamba block.</b> The input U is processed through two parallel paths: a main path featuring a convolution layer, a hidden layer of activation functions and a SSM block that implements a time-varying linear dynamical system in the feature space, and a residual path with a hidden layer of activation functions. The final output is the element-wise product of the outputs of these two paths.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Results -->
+    <section id="results">
+      <div class="col">
+        <h2>Results</h2>
+        <p class="lead">Closed-loop results for the SISO Van der Pol oscillator and the MIMO Four Tank system. Throughout: Mamba-MPC <span class="sw" style="background:#9467bd"></span>, LSTM-MPC <span class="sw" style="background:#2ca02c"></span>, Transformer-MPC <span class="sw" style="background:#1f77b4"></span>, reference <span class="sw" style="background:#222"></span>.</p>
+      </div>
+      <div class="figures">
+        <figure class="half">
+          <img src="assets/figures/vdp_tracking.png" alt="Reference tracking comparison of Mamba-MPC, LSTM-MPC and Transformer-MPC on a Van der Pol oscillator" loading="lazy" />
+          <figcaption><b>Van der Pol reference tracking.</b> Comparison between Mamba-MPC (purple), LSTM-MPC (green) and Transformer-MPC (blue) for a piece-wise constant reference (black, dashed) on a Van der Pol oscillator.</figcaption>
+        </figure>
+        <figure class="half">
+          <img src="assets/figures/computation_time.png" alt="Mean online computation time versus prediction horizon for Mamba-MPC, LSTM-MPC and Transformer-MPC" loading="lazy" />
+          <figcaption><b>Computational scaling.</b> Comparison between the mean online computation time of Mamba-MPC (purple), LSTM-MPC (green) and Transformer-MPC (blue) on a Van der Pol oscillator for prediction horizons N = 5, 10, …, 50. Mamba and LSTM scale linearly with the prediction horizon while the Transformer scales quadratically.</figcaption>
+        </figure>
+        <figure class="half">
+          <img src="assets/figures/vdp_noise.png" alt="Mamba-MPC versus LSTM-MPC under measurement noise with SNR 20, over 100 noise realizations" loading="lazy" />
+          <figcaption><b>Noise robustness.</b> Closed-loop reference tracking comparison between Mamba-MPC (purple) and LSTM-MPC (green) under noise conditions with a Signal-to-Noise Ratio (SNR) of 20. The solid line indicates the mean value and the shaded area the standard deviation across 100 noise realizations; box plots show the ISE, IAE and input energy.</figcaption>
+        </figure>
+        <figure class="half">
+          <img src="assets/figures/fourtank_tracking.png" alt="Mamba-MPC versus LSTM-MPC on the MIMO Four Tank system" loading="lazy" />
+          <figcaption><b>MIMO Four Tank.</b> Closed-loop performance comparison between Mamba-MPC (purple) and LSTM-MPC (green) on the MIMO Four Tank system for piece-wise constant reference trajectories (black).</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Citation -->
+    <section class="col" id="cite">
+      <h2>Citation</h2>
+      <p class="citation-text">
+        M. Cevaal, T. O. de Jong and M. Lazar, “Mamba Sequence Modeling meets Model Predictive Control,” <i>IEEE Open Journal of Control Systems</i>, 2026, pp. 1–15, doi: <a href="https://doi.org/10.1109/OJCSYS.2026.3724785" target="_blank" rel="noopener">10.1109/OJCSYS.2026.3724785</a>.
+        Available on <a href="https://ieeexplore.ieee.org/document/11657796" target="_blank" rel="noopener">IEEE Xplore</a>.
+      </p>
+      <div class="citation">
+        <pre id="bibtex">@article{cevaal2026mamba,
+  title   = {Mamba Sequence Modeling Meets Model Predictive Control},
+  author  = {Cevaal, Michiel and de Jong, Thomas O. and Lazar, Mircea},
+  journal = {IEEE Open Journal of Control Systems},
+  year    = {2026},
+  pages   = {1--15},
+  doi     = {10.1109/OJCSYS.2026.3724785},
+  issn    = {2694-085X}
+}</pre>
+        <button class="copy" id="copybib" type="button">Copy</button>
+      </div>
+    </section>
+
+    <!-- Acknowledgements -->
+    <section class="col" id="ack">
+      <h2>Acknowledgements</h2>
+      <p>
+        This work is licensed under a <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons Attribution 4.0 License</a>.
+        A collaboration between <a href="https://www.tilburguniversity.edu/" target="_blank" rel="noopener">Tilburg University</a> and the
+        <a href="https://www.tue.nl/" target="_blank" rel="noopener">Eindhoven University of Technology</a>.
+        The implementation code in Python using PyTorch and CasADi is available on <a href="https://github.com/cmichiel/Mamba-MPC" target="_blank" rel="noopener">GitHub</a>.
+        <br>
+        Correspondence: <a href="mailto:m.cevaal@tilburguniversity.edu">m.cevaal@tilburguniversity.edu</a>.
+      </p>
+    </section>
+
+    <footer>
+      <div>© <span id="year"></span> · Michiel Cevaal</div>
+      <div>
+        Page template adapted from
+        <a href="https://nerfies.github.io/" target="_blank" rel="noopener">Nerfies</a> and
+        <a href="https://rpg.ifi.uzh.ch/marl/" target="_blank" rel="noopener">RPG</a>
+      </div>
+      <div>
+        <a href="https://ieeexplore.ieee.org/document/11657796" target="_blank" rel="noopener">IEEE Xplore</a>
+        <a href="paper/Mamba_Sequence_Modeling_meets_Model_Predictive_Control.pdf" target="_blank" rel="noopener">PDF</a>
+        <a href="https://github.com/cmichiel/Mamba-MPC" target="_blank" rel="noopener">Code</a>
+        <a href="#main-video">Video</a>
+      </div>
+    </footer>
+
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
